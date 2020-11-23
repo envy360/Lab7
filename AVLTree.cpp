@@ -82,11 +82,29 @@ void AVLTree::rotate(Node *node, const string &val) {
 }
 
 Node *AVLTree::rotateLeft(Node *node) {
+    Node *right = node->right;
+    Node *T2 = node->left;
 
+    right->left = node;
+    node->right = T2;
+
+    node->height = max(node->left->height, node->right->height) + 1;
+    right->height = max(right->left->height, right->right->height)+1;
+
+    return right;
 }
 
 Node *AVLTree::rotateRight(Node *node) {
+    Node *left = node->left;
+    Node *T2 = left->right;
 
+    left->right = node;
+    node->left = T2;
+
+    node->height =max(node->left->height, node->right->height) + 1;
+    left->height = max(left->left->height, node->right->height) +1;
+
+    return node;
 }
 
 Node *AVLTree::findUnbalancedNode(Node *node, const string &val) const {
